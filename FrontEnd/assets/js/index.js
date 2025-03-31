@@ -56,7 +56,6 @@ async function renderWorks() {
 renderWorks();
 
 async function fetchCategories() {
-	debugger;
 	try {
 		const response = await fetch("http://localhost:5678/api/categories");
 		if (!response.ok) {
@@ -79,9 +78,10 @@ async function renderCategories() {
 	categoriesButtons.appendChild(allButton);
 
 	categories.forEach((category) => {
-		const categoryButton = document.getElementsByID("button");
-		categoryButton.textContent = category.name;
-		categoryButton.textContent = category.name;
+		debugger;
+		const categoryButton = document.getElementById("button");
+		categoryButton.innerText = category.name;
+		categoryButton.innerText = category.name;
 		categoriesButtons.appendChild(categoryButton);
 	});
 }

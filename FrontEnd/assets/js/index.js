@@ -1,4 +1,4 @@
-console.log("Hello world");
+console.log("Helloo world");
 
 //fetch("http://localhost:5678/api/works")
 //	.then((response) => {
@@ -29,7 +29,7 @@ async function fetchWorks() {
 }
 
 const gallery = document.getElementById("gallery");
-const categoriesDiv = document.getElementById("categoriesDiv");
+const categoriesButtons = document.getElementById("categoriesButtons");
 
 //Display works
 // Loop thru our data
@@ -44,6 +44,7 @@ async function renderWorks() {
 		const figCaption = document.createElement("figcaption");
 		const img = document.createElement("img");
 
+		figure.setAttribute;
 		figCaption.textContent = work.title;
 		img.src = work.imageUrl;
 		img.alt = work.title;
@@ -55,6 +56,7 @@ async function renderWorks() {
 renderWorks();
 
 async function fetchCategories() {
+	debugger;
 	try {
 		const response = await fetch("http://localhost:5678/api/categories");
 		if (!response.ok) {
@@ -71,12 +73,24 @@ async function fetchCategories() {
 
 async function renderCategories() {
 	const categories = await fetchCategories();
-	const categoriesDiv = document.getElementById("categoriesDiv");
+
+	const allButton = document.createElement("button");
+	allButton.textContent = "All";
+	categoriesButtons.appendChild(allButton);
+
 	categories.forEach((category) => {
-		debugger;
-		const categoryButton = document.createElement("button");
+		const categoryButton = document.getElementsByID("button");
 		categoryButton.textContent = category.name;
-		categoriesDiv.appendChild(categoryButton);
+		categoryButton.textContent = category.name;
+		categoriesButtons.appendChild(categoryButton);
 	});
 }
+
 renderCategories();
+
+// add event listener for the buttons that will show or hide certain works based on their category
+// have to fetch the category first from the array and then apply it to the works somehow
+//allButton.addEventListener("click", () => {
+//	categoriesButtons.classList.remove("");
+//});
+//

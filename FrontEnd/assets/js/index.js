@@ -78,11 +78,14 @@ async function renderCategories() {
 	categoriesButtons.appendChild(allButton);
 
 	categories.forEach((category) => {
-		debugger;
-		const categoryButton = document.getElementById("button");
+		const categoryButton = document.createElement("button");
 		categoryButton.innerText = category.name;
-		categoryButton.innerText = category.name;
+		categoryButton.classList.add("category-button");
+		categoryButton.dataset.id = category.id;
 		categoriesButtons.appendChild(categoryButton);
+		categoryButton.addEventListener("click", () => {
+			console.log(category.name + " category button clicked");
+		});
 	});
 }
 

@@ -1,17 +1,5 @@
 console.log("Helloo world");
 
-//fetch("http://localhost:5678/api/works")
-//	.then((response) => {
-//		if (!response.ok) {
-//			throw new Error("Could not fetch");
-//		}
-//
-//		return response.json();
-//	})
-//
-//	.then((data) => console.log(data))
-//	.catch((error) => console.error(error));//
-
 async function fetchWorks() {
 	try {
 		const response = await fetch("http://localhost:5678/api/works");
@@ -30,6 +18,7 @@ async function fetchWorks() {
 
 const gallery = document.getElementById("gallery");
 const categoriesButtons = document.getElementById("categoriesButtons");
+let worksCategoryId;
 
 //Display works
 // Loop thru our data
@@ -37,8 +26,9 @@ const categoriesButtons = document.getElementById("categoriesButtons");
 // Put corresponding data into elements
 // Put html elements into gallery
 
-async function renderWorks() {
-	const works = await fetchWorks();
+async function renderWorks(works) {
+	// const works = await fetchWorks();
+	gallery.innerHTML = "";
 	works.forEach((work) => {
 		const figure = document.createElement("figure");
 		const figCaption = document.createElement("figcaption");
@@ -46,6 +36,7 @@ async function renderWorks() {
 
 		figure.setAttribute;
 		figCaption.textContent = work.title;
+		// let worksCategoryId = categoryId;
 		img.src = work.imageUrl;
 		img.alt = work.title;
 		figure.appendChild(img);
@@ -53,7 +44,23 @@ async function renderWorks() {
 		gallery.appendChild(figure);
 	});
 }
-renderWorks();
+
+// function setCategoryId(categoryId) {
+// 	fetchWorks();
+// 	worksCategoryId = work.categoryId;
+
+// 	categoriesButtons.addEventListener("click", () => {
+// 		const category = this.dataset.category;
+
+// 		if (category === worksCategoryId.toString()) {
+// 			works.style.display = "block";
+// 		} else {
+// 			works.style.display = "none";
+// 		}
+// 	});
+// }
+
+// same as fetchworks but gets the categories
 
 async function fetchCategories() {
 	try {
@@ -70,12 +77,15 @@ async function fetchCategories() {
 	}
 }
 
+// puts the categories on the page from the api endpoint
 async function renderCategories() {
 	const categories = await fetchCategories();
 
 	const allButton = document.createElement("button");
 	allButton.textContent = "All";
 	categoriesButtons.appendChild(allButton);
+
+	allButton.addEventListener("click", () => filterWorks("all"));
 
 	categories.forEach((category) => {
 		const categoryButton = document.createElement("button");
@@ -85,15 +95,27 @@ async function renderCategories() {
 		categoriesButtons.appendChild(categoryButton);
 		categoryButton.addEventListener("click", () => {
 			console.log(category.name + " category button clicked");
+			filterWorks(categoryButton.dataset.id);
 		});
 	});
 }
 
-renderCategories();
+async function filterWorks(id = "all") {
+	const works = await fetchWorks();
+	let list;
+	if (id === "all") {
+		list = works;
+	} else {
+		list = works.filter(function (work) {
+			return work.categoryId == id;
+		});
+		renderWorks(list);
+	}
+}
 
-// add event listener for the buttons that will show or hide certain works based on their category
-// have to fetch the category first from the array and then apply it to the works somehow
-//allButton.addEventListener("click", () => {
-//	categoriesButtons.classList.remove("");
-//});
-//
+async function init() {
+	renderCategories();
+	const works = await fetchWorks();
+	renderWorks(works);
+}
+init();

@@ -1,0 +1,32 @@
+body {
+	background-color: #fffef8;
+	display: grid;
+	justify-items: center;
+}
+div {
+	display: grid;
+}
+#submit-button {
+	background-color: #1e6154;
+	color: white;
+	border-radius: 20px;
+	height: 40px;
+	width: auto;
+	font-size: 30px;
+	padding: 0px 30px;
+}
+
+label {
+	display: block;
+	margin-bottom: 10px;
+}
+
+input {
+	height: 40px;
+	width: 300px;
+	display: block;
+
+	border: none;
+	box-shadow: 1px 2px 5px lightgrey;
+	background-color: #ffffff;
+}

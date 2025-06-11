@@ -1,14 +1,45 @@
 <head>
    <link rel="stylesheet" href="./assets/login.css" />
+
+		<meta charset="UTF-8" />
+		<title>Sophie Bluel - Interior Designer</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap"
+			rel="stylesheet"
+		/>
+		<meta name="description" content="" />
+		<link rel="stylesheet" href="./assets/style.css" />
+
+	<body>
+		<header>
+			<h1>Sophie Bluel <span>Interior Designer</span></h1>
+			<nav>
+				<ul>
+					<li>projects</li>
+					<li>contact</li>
+					<li><a href="login.html">login</a></li>
+					<li>
+						<img
+							src="./assets/icons/instagram.png"
+							alt="Instagram"
+						/>
+					</li>
+				</ul>
+			</nav>
+		</header>
 </head>
 
 
 
 <body>
-  <form id="login-form">
+  <form id="login-form" method="post">
+    <h1 id="login">Login</h1>
     <div>
-      <label for="username">Username</label>
-      <input id="username" type="text">
+      <label for="username">Email Address</label>
+      <input id="username" type="email">
       <br> <small style="display: none" id="username-error-message" class="text-danger">Username cannot be left empty.</small></br>
       <label for="password">Password</label>
       <input id="password" type="password">

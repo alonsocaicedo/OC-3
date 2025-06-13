@@ -131,6 +131,11 @@ body {
 	font-family: "Work Sans";
 	font-size: 14px;
 }
+
+#home:hover {
+	cursor: pointer;
+}
+
 header {
 	display: flex;
 	justify-content: space-between;

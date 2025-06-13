@@ -1,9 +1,17 @@
+const homeButton = document.getElementById("home");
 const usernameInput = document.getElementById("username");
 const passwordInput = document.getElementById("password");
+const loginAnchor = document.getElementById("loginAnchor");
 const loginForm = document.getElementById("login-form");
 const submitButton = document.getElementById("submit-button");
 const passwordErrorMessage = document.getElementById("password-error-message");
 const usernameErrorMessage = document.getElementById("username-error-message");
+
+homeButton.addEventListener("click", redirectToHome);
+
+function redirectToHome() {
+	window.location.replace("index.html");
+}
 
 loginForm.addEventListener("submit", logUserIn);
 async function logUserIn() {
@@ -29,9 +37,11 @@ async function logUserIn() {
 		}
 
 		const data = await response.json();
+		sessionStorage.setItem("token", data.token);
 		console.log(data);
 		// return data;
 		window.location.replace("index.html");
+		loginAnchor.innerText = "logout";
 	} catch (error) {
 		console.error(error);
 	}

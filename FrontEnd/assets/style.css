@@ -134,11 +134,21 @@ body {
 	font-family: "Work Sans";
 	font-size: 14px;
 }
+
+#home:hover {
+	cursor: pointer;
+}
+
 header {
 	display: flex;
 	justify-content: space-between;
 	margin: 50px 0;
 }
+
+header div {
+	display: none;
+}
+
 section {
 	margin: 50px 0;
 }
@@ -150,6 +160,16 @@ h1 {
 	font-size: 22px;
 	font-weight: 800;
 	color: #b1663c;
+}
+
+#portfolioHeader {
+	display: flex;
+	justify-content: center;
+	align-items: baseline;
+}
+
+#modal {
+	display: none;
 }
 
 h1 > span {
@@ -164,6 +184,16 @@ h2 {
 	font-size: 30px;
 	color: #1d6154;
 }
+
+#edit {
+	text-decoration: none;
+	color: black;
+}
+
+#edit visited {
+	color: black;
+}
+
 nav ul {
 	display: flex;
 	align-items: center;

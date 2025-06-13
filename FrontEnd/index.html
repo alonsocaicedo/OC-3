@@ -15,12 +15,13 @@
 	</head>
 	<body>
 		<header>
-			<h1>Sophie Bluel <span>Interior Designer</span></h1>
+			<div id="editHeader" class="hidden">You're in editing mode</div>
+			<h1 id="home">Sophie Bluel <span>Interior Designer</span></h1>
 			<nav>
 				<ul>
 					<li>projects</li>
 					<li>contact</li>
-					<li><a href="login.html">login</a></li>
+					<li><a id="loginAnchor" href="login.html">login</a></li>
 					<li>
 						<img
 							src="./assets/icons/instagram.png"
@@ -58,7 +59,22 @@
 			</section>
 
 			<section id="portfolio">
-				<h2>My Projects</h2>
+				<div id="portfolioHeader">
+					<h2>My Projects</h2>
+					<span id="edit">
+						<img
+							src="https://icons.iconarchive.com/icons/fa-team/fontawesome-regular/24/FontAwesome-Regular-Pen-to-Square-icon.png"
+							width="16"
+							height="16"
+						/>
+						<a href="#">Edit</a></span
+					>
+				</div>
+				<section class="modal" , id="modal">
+					<div>
+						<h3>Photo Gallery</h3>
+					</div>
+				</section>
 				<nav id="categoriesButtons"></nav>
 				<div class="gallery" id="gallery"></div>
 			</section>
@@ -89,6 +105,19 @@
 				</ul>
 			</nav>
 		</footer>
-		<script src="assets/js/index.js"></script>
+		<script src="assets/js/index.js">
+									const obj = {name: 'Bob', age: 45};
+										sessionStorage.setItem('occupation','software dev');
+										console.log(sessionStorage.setItem('person', JSON.stringify(obj)));
+
+						sessionStorage.setItem('occupation', 'Dentist');
+			// sessionStorage.removeItem('person');
+									for (let i = 0; i < sessionStorage.length; i++){
+									const key = sessionStorage.key(i);
+									console.log(`${key} => ${sessionStorage.getItem(key)}`);
+													}
+													console.log(sessionStorage.getItem('occupation'));
+													console.log(JSON.parse(sessionStorage.getItem('person')));
+		</script>
 	</body>
 </html>

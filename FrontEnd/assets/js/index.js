@@ -1,5 +1,47 @@
 console.log("Helloo world");
 
+const homeButton = document.getElementById("home");
+const editButton = document.getElementById("edit");
+const modal = document.getElementById("modal");
+const loginAnchor = document.getElementById("loginAnchor");
+const editHeader = document.getElementById("editHeader");
+
+homeButton.addEventListener("click", redirectToHome);
+loginAnchor.addEventListener("click", logout);
+
+function redirectToHome() {
+	window.location.replace("index.html");
+}
+
+function logout() {
+	sessionStorage.removeItem("token");
+}
+editButton.addEventListener("click", renderEditElements);
+
+function renderEditElements() {
+	if (editHeader.style.display === "none" || modal.style.display === "none") {
+		editHeader.style.display = "block";
+		modal.style.display = "block";
+	} else {
+		editHeader.style.display = "none";
+		modal.style.display = "none";
+	}
+}
+
+//function to render elements that only show IF logged in, need function to check for token, then to display or hide based on token avail
+function renderLoginElements() {
+	const token = sessionStorage.getItem("token");
+	if (token) {
+		editButton.style.display = "block";
+		loginAnchor.innerText = "logout";
+	} else {
+		editButton.style.display = "none";
+		loginAnchor.innerText = "login";
+	}
+}
+
+// need to make login change to logout, check for token after
+
 async function fetchWorks() {
 	try {
 		const response = await fetch("http://localhost:5678/api/works");
@@ -117,5 +159,6 @@ async function init() {
 	renderCategories();
 	const works = await fetchWorks();
 	renderWorks(works);
+	renderLoginElements();
 }
 init();

@@ -5,7 +5,7 @@
 
 html,
 body,
-div,
+/* div, */
 span,
 applet,
 object,
@@ -170,6 +170,20 @@ h1 {
 
 #modal {
 	display: none;
+	position: fixed;
+	left: 30%;
+	transform: translateX(-50%);
+	width: 450px;
+	padding: 1.3rem;
+	background-color: white;
+	border: 1px solid #ddd;
+	border-radius: 15px;
+	z-index: 2;
+}
+
+#modal h3 {
+	font-size: 20px;
+	text-align: center;
 }
 
 h1 > span {
@@ -185,20 +199,46 @@ h2 {
 	color: #1d6154;
 }
 
-#edit {
+#edit a,
+#edit a:visited {
 	text-decoration: none;
 	color: black;
+	margin-left: 10px;
 }
 
-#edit visited {
-	color: black;
+#editHeader {
+	text-align: center;
+	background-color: white;
+	filter: invert(100%);
+	padding-top: 15px;
+	padding-bottom: 15px;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+}
+
+#home {
+	margin-top: 20px;
 }
 
 nav ul {
+	margin-top: 20px;
 	display: flex;
 	align-items: center;
 	list-style-type: none;
 }
+
+#loginAnchor,
+#loginAnchor:visited {
+	text-decoration: none;
+	color: black;
+}
+
+#loginAnchor:hover {
+	color: #b1663c;
+}
+
 nav li {
 	padding: 0 10px;
 	font-size: 1.2em;

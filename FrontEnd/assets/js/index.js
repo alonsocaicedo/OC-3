@@ -3,29 +3,50 @@ console.log("Helloo world");
 const homeButton = document.getElementById("home");
 const editButton = document.getElementById("edit");
 const modal = document.getElementById("modal");
+// const modalGallery = document.getElementById("modalGallery");
 const loginAnchor = document.getElementById("loginAnchor");
 const editHeader = document.getElementById("editHeader");
 
+editHeader.setAttribute("hidden", "");
+
 homeButton.addEventListener("click", redirectToHome);
 loginAnchor.addEventListener("click", logout);
+
+function logout(event) {
+	event.preventDefault();
+	// if we have the token from being logged in, then this will remove it to log us out AND it will redirect to home after
+	if (sessionStorage.getItem("token")) {
+		sessionStorage.removeItem("token");
+		redirectToHome();
+	}
+	// however, if there is no token, then it will redirect us to the login.html page, which it originally does, but since we did preventDefault(), we are putting this
+	else {
+		window.location.replace("login.html");
+	}
+}
 
 function redirectToHome() {
 	window.location.replace("index.html");
 }
 
-function logout() {
-	sessionStorage.removeItem("token");
-}
 editButton.addEventListener("click", renderEditElements);
 
 function renderEditElements() {
-	if (editHeader.style.display === "none" || modal.style.display === "none") {
-		editHeader.style.display = "block";
+	if (editHeader.hasAttribute("hidden") || modal.style.display === "none") {
+		editHeader.removeAttribute("hidden");
 		modal.style.display = "block";
 	} else {
-		editHeader.style.display = "none";
+		editHeader.setAttribute("hidden", "");
 		modal.style.display = "none";
 	}
+}
+
+async function openModal() {
+	const works = await fetchWorks(); // or reuse cached list if you have one
+	const modalGallery = document.querySelector(".modalGallery");
+
+	renderWorks(works, modalGallery); // ✅ Render to the modal instead of the main page
+	document.getElementById("modalGallery").style.display = "block";
 }
 
 //function to render elements that only show IF logged in, need function to check for token, then to display or hide based on token avail
@@ -33,10 +54,10 @@ function renderLoginElements() {
 	const token = sessionStorage.getItem("token");
 	if (token) {
 		editButton.style.display = "block";
-		loginAnchor.innerText = "logout";
+		loginAnchor.innerText = "Logout";
 	} else {
 		editButton.style.display = "none";
-		loginAnchor.innerText = "login";
+		loginAnchor.innerText = "Login";
 	}
 }
 
@@ -71,6 +92,7 @@ let worksCategoryId;
 async function renderWorks(works) {
 	// const works = await fetchWorks();
 	gallery.innerHTML = "";
+	// modalGallery.innerHTML = "";
 	works.forEach((work) => {
 		const figure = document.createElement("figure");
 		const figCaption = document.createElement("figcaption");
@@ -84,6 +106,7 @@ async function renderWorks(works) {
 		figure.appendChild(img);
 		figure.appendChild(figCaption);
 		gallery.appendChild(figure);
+		// modalGallery.appendChild(figure);
 	});
 }
 
@@ -151,8 +174,8 @@ async function filterWorks(id = "all") {
 		list = works.filter(function (work) {
 			return work.categoryId == id;
 		});
-		renderWorks(list);
 	}
+	renderWorks(list);
 }
 
 async function init() {

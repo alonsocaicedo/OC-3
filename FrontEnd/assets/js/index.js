@@ -35,6 +35,7 @@ function renderEditElements() {
 	if (editHeader.hasAttribute("hidden") || modal.style.display === "none") {
 		editHeader.removeAttribute("hidden");
 		modal.style.display = "block";
+		openModal();
 	} else {
 		editHeader.setAttribute("hidden", "");
 		modal.style.display = "none";
@@ -42,11 +43,9 @@ function renderEditElements() {
 }
 
 async function openModal() {
-	const works = await fetchWorks(); // or reuse cached list if you have one
+	const works = await fetchWorks();
 	const modalGallery = document.querySelector(".modalGallery");
-
-	renderWorks(works, modalGallery); // ✅ Render to the modal instead of the main page
-	document.getElementById("modalGallery").style.display = "block";
+	await renderWorks(works, modalGallery);
 }
 
 //function to render elements that only show IF logged in, need function to check for token, then to display or hide based on token avail
@@ -89,24 +88,22 @@ let worksCategoryId;
 // Put corresponding data into elements
 // Put html elements into gallery
 
-async function renderWorks(works) {
-	// const works = await fetchWorks();
-	gallery.innerHTML = "";
-	// modalGallery.innerHTML = "";
+async function renderWorks(works, container) {
+	const parent = container || gallery;
+	parent.innerHTML = "";
+
 	works.forEach((work) => {
 		const figure = document.createElement("figure");
 		const figCaption = document.createElement("figcaption");
 		const img = document.createElement("img");
 
-		figure.setAttribute;
 		figCaption.textContent = work.title;
-		// let worksCategoryId = categoryId;
 		img.src = work.imageUrl;
 		img.alt = work.title;
+
 		figure.appendChild(img);
 		figure.appendChild(figCaption);
-		gallery.appendChild(figure);
-		// modalGallery.appendChild(figure);
+		parent.appendChild(figure);
 	});
 }
 
@@ -166,7 +163,7 @@ async function renderCategories() {
 }
 
 async function filterWorks(id = "all") {
-	const works = await fetchWorks();
+	const works = await fetchWorks(works, modalGallery);
 	let list;
 	if (id === "all") {
 		list = works;
